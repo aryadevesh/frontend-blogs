@@ -11,12 +11,15 @@
   },
   "dependencies": {
     "@devesharya/medium-common": "^1.2.0",
+    "axios": "^1.7.5",
+    "lodash": "^4.17.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
+    "@types/lodash": "^4.17.7",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
