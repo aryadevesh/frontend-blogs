@@ -35,7 +35,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
             );
             const jwt = response.data;
             localStorage.setItem("token", jwt);
-            navigate("/blogs");
+            navigate("/papers");
         } catch (e) {
             alert(`Error while ${type === "signup" ? "signing up" : "signing in, Incorrect password"}`);
         }
