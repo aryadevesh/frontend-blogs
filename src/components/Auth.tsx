@@ -1,9 +1,9 @@
 import { SignupInput } from "@devesharya/medium-common";
 import axios from "axios";
-import { ChangeEvent, useState, useCallback } from "react";
+import { ChangeEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "./config";
-import _ from "lodash";
+
 
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     const navigate = useNavigate();
@@ -13,20 +13,6 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
         password: "",
     });
 
-    const debouncedSetInputs = useCallback(
-        _.debounce((newInputs: Partial<SignupInput>) => {
-            setPostInputs((prevInputs: any) => ({
-                ...prevInputs,
-                ...newInputs,
-            }));
-        }, 500), // 500ms debounce time
-        []
-    );
-
-    const handleInputChange = (field: keyof SignupInput) => (e: ChangeEvent<HTMLInputElement>) => {
-        debouncedSetInputs({ [field]: e.target.value });
-    };
-
     async function sendRequest() {
         try {
             const response = await axios.post(
@@ -34,6 +20,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                 postInputs
             );
             const jwt = response.data;
+            console.log(jwt);
             localStorage.setItem("token", jwt);
             navigate("/papers");
         } catch (e) {
@@ -54,24 +41,27 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                             {type === "signup" ? "Sign in" : "Sign up"}
                         </Link>
                     </div>
-                    <div className="pt-5">
-                        {type === "signup" ? (
-                            <LabeledInput label="Name" placeholder="your name" onChange={handleInputChange("name")} />
-                        ) : null}
-                    </div>
-                    <div className="pt-5">
-                        <LabeledInput label="Email" placeholder="your email" onChange={handleInputChange("email")} />
-                    </div>
-                    <div className="pt-5">
-                        <Labeledpassword label="Password" placeholder="********" onChange={handleInputChange("password")} />
-                        <button
-                            onClick={sendRequest}
-                            type="button"
-                            className="mt-8 w-full text-black bg-yellow-400 hover:bg-yellow-500 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2"
-                        >
-                            {type === "signup" ? "Sign up" : "Sign in"}
-                        </button>
-                    </div>
+                    <div className="pt-8">
+                    {type === "signup" ? <LabeledInput label="Name" placeholder="Devesh" onChange={(e) => {
+                        setPostInputs({
+                            ...postInputs,
+                            name: e.target.value
+                        })
+                    }} /> : null}
+                    <LabeledInput label="email" placeholder="xyz@gmail.com" onChange={(e) => {
+                        setPostInputs({
+                            ...postInputs,
+                            email: e.target.value
+                        })
+                    }} />
+                    <Labeledpassword label="Password" placeholder="123456" onChange={(e) => {
+                        setPostInputs({
+                            ...postInputs,
+                            password: e.target.value
+                        })
+                    }} />
+                    <button onClick={sendRequest} type="button" className="mt-8 w-full text-black bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">{type === "signup" ? "Sign up" : "Sign in"}</button>
+                </div>
                 </div>
             </div>
         </div>
@@ -113,3 +103,21 @@ function Labeledpassword({ label, placeholder, onChange }: LabeledInputType) {
         </div>
     );
 }
+
+export const signOut = () => {
+    const navigate = useNavigate();
+
+    function handleSignOut() {
+        // Remove the JWT token from localStorage
+        localStorage.removeItem("token");
+
+        // Redirect to the sign-in page
+        navigate("/signin");
+    }
+
+    return (
+        <button onClick={handleSignOut} className="mr-4 text-black bg-yellow-400 hover:bg-yellow-600 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+            Sign Out
+        </button>
+    );
+};

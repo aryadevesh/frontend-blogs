@@ -23,7 +23,7 @@ export const usePaper = ({ id }: { id: string }) => {
             }
         })
             .then(response => {
-                setPaper(response.data.blog);
+                setPaper(response.data.paper);
                 setLoading(false);
             })
     }, [id])
@@ -39,13 +39,13 @@ export const usePapers = () => {
     const [papers, setPapers] = useState<Paper[]>([]);
 
     useEffect(() => {
-        axios.get(`${BACKEND_URL}/api/v1/blog/bulk`, {
+        axios.get(`${BACKEND_URL}/api/v1/paper/bulk`, {
             headers: {
                 Authorization: localStorage.getItem("token")
             }
         })
             .then(response => {
-                setPapers(response.data.blogs);
+                setPapers(response.data.papers);
                 setLoading(false);
             })
     }, [])

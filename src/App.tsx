@@ -2,8 +2,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Signup } from './pages/Signup'
 import { Signin } from './pages/Signin'
 import { Paper } from './pages/Paper'
-import { Papers } from './pages/Papers' 
+ 
 import { Publish } from './pages/Publish'
+import { Papers } from './pages/Papers'
+
 function App() {
 
   return (

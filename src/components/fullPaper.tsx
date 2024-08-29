@@ -2,7 +2,7 @@ import { Paper } from "../hooks"
 import { Appbar } from "./AppBar"
 import { Avatar } from "./PaperCard"
 
-
+ 
 export const FullPaper = ({ paper }: {paper: Paper}) => {
     return <div>
         <Appbar />
