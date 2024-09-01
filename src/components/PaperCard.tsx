@@ -12,7 +12,7 @@ export const PaperCard = ({
     authorName,
     title,
     content,
-    publishedDate
+    //publishedDate
 }: PaperCardProps) => {
     return <Link to={`/paper/${id}`}>
         <div className="p-4 border-b border-slate-200 pb-4 w-screen max-w-screen-md cursor-pointer">
@@ -22,9 +22,9 @@ export const PaperCard = ({
                 <div className="flex justify-center flex-col pl-2 flex justify-center flex-col">
                     <Circle />
                 </div>
-                <div className="pl-2 font-thin text-slate-500 text-sm flex justify-center flex-col">
+                {/* <div className="pl-2 font-thin text-slate-500 text-sm flex justify-center flex-col">
                     {publishedDate}
-                </div>
+                </div> */}
             </div>
             <div className="text-xl font-semibold pt-2">
                 {title}
